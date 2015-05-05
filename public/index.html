@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Makov chain for dance</title>
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+	<script type="text/javascript" src="lib/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="lib/jquery-ui.js"></script>
+	<script type="text/javascript" src="lib/lodash.js"></script>
+	<script type="text/javascript" src="lib/Backbone.js"></script>
+	<script type="text/javascript" src="lib/backbone-fsm.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+	
+</head>
+<body>
+<!-- 	<div id="console">Markov Chain</div>
+	<div id="credit">Original art work by Raymond Larrett</div>
+ -->	<div id="markov-app">
+		<div id="markov-images">
+			<!-- <div id="image-0" class='image'>
+				<img src="images/sitting.gif"  class='image'>
+			</div>
+			<div id="image-1" class='image'>
+				<img src="images/talking.gif" class='image'>
+			</div>
+			<div id="image-2" class='image'>
+				<img src="images/running.gif"  class='image'>
+			</div>
+			<div id="image-3" class='image'>
+				<img src="images/kissing.gif"  class='image'>
+			</div>
+			<div id="image-4" class='image'>
+				<img src="images/following.gif"  class='image'>
+			</div> -->
+		</div>
+
+		<div>
+			<select id="samples" name="samples" style="width:200px">
+			<!-- <option value="bipolar">bipolar</option> -->
+			<option value="excited">excited</option>
+			<option value="calm">calm</option>
+			<option value="agitated">agitated</option>
+		</div>
+		<div style="display:block">	
+			<input type="checkbox" id="toggle1" name = "toggle1" class = "toggle1">
+			<label for "toggle1"> Show transition probabilities</label>
+		</div>
+
+		<ul id = "state-list"></ul> 
+
+
+	</div>
+
+
+	  <!-- Templates -->
+
+	<script type="text/template" id="state-template">
+		<div class="view">
+		  <input class="toggle" type="checkbox" <%= active ? 'checked="checked"' : '' %> />
+		  <label><%- name %></label>
+		</div>
+		<div id="slider-0" class="state-slider"></div>
+		<div id="slider-1" class="state-slider"></div>
+		<div id="slider-2" class="state-slider"></div>
+		<div id="slider-3" class="state-slider"></div>
+		<div id="slider-4" class="state-slider"></div>
+	</script>
+
+	<script type="text/template" id="makov-template">
+		<% if (done) { %>
+		  <a id="clear-completed">Clear <%= done %> completed <%= done == 1 ? 'item' : 'items' %></a>
+		<% } %>
+		<div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left</div>
+	</script>
+
+
+</body>
+<script type="text/javascript" src="js/samples.js"></script>
+<script type="text/javascript" src="js/markov.js"></script>
+</html>

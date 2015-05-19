@@ -2,7 +2,7 @@
 
 
 var stateNames=['sitting', 'talking', 'running', 'kissing', 'following'];
-
+// white, black, red, blue, green
 var statesJson=[
     {
         name:"sitting",
@@ -49,13 +49,28 @@ var samples=[
 	},
 	{
 		name:'excited',
-		transition: [
-			[0.7, 0.2, 0.1, 0.1, 0.2], //sitting
-			[0.2, 0.7, 0.1, 0.1, 0.2], //talking
-			[0.1, 0.2, 0.7, 0.1, 0.2], //running
-			[0.1, 0.2, 0.7, 0.1, 0.2], //kissing
-			[0.1, 0.2, 0.7, 0.1, 0.2] //following
+		// white, black, red, blue, green
+		transition: [ //mostly active
+			[0.3, 0.2, 0.3, 0.5, 0.2], //white stillness
+			[0.2, 0.1, 0.3, 0.5, 0.1], //black exit
+			[0.1, 0.1, 0.5, 0.5, 0.2], //red playful, beach
+			[0.3, 0.1, 0.3, 0.5, 0.2], //blue active 5%
+			[0.1, 0.1, 0.3, 0.5, 0.2] //green slow 80%
 		]
+		// transition: [ //mostly quiet
+		// 	[0.3, 0.2, 0.3, 0.05, 0.5], //white stillness
+		// 	[0.2, 0.1, 0.3, 0.05, 0.5], //black exit
+		// 	[0.1, 0.2, 0.5, 0.05, 0.6], //red playful, beach
+		// 	[0.3, 0.2, 0.3, 0.1, 0.4], //blue active 5%
+		// 	[0.1, 0.2, 0.3, 0.05, 0.5] //green slow 80%
+		// ]
+		// transition: [
+		// 	[0.3, 0.2, 0.3, 0.05, 0.5], //sitting
+		// 	[0.2, 0.1, 0.3, 0.05, 0.5], //talking
+		// 	[0.1, 0.2, 0.5, 0.05, 0.6], //running
+		// 	[0.3, 0.2, 0.3, 0.1, 0.4], //kissing
+		// 	[0.1, 0.2, 0.3, 0.05, 0.5] //following
+		// ]
 	},
 	{
 		name:'agitated',
@@ -65,6 +80,46 @@ var samples=[
 			[0.2, 0.05, 0.4, 0.2, 0.3], //running
 			[0.01, 0.4, 0.6, 0.2, 0.3], //kissing
 			[0.2, 0.1, 0.6, 0.3, 0.3] //following
+		]
+	},
+	{
+		name:'dual',
+		transition: [
+			[0.3, 0.7, 0, 0, 0], //white stillness
+			[0.7, 0.3, 0, 0, 0], //black exit
+			[0.5, 0.5, 0, 0, 0], //red playful, beach
+			[0.5, 0.5, 0, 0, 0], //blue active 5%
+			[0.5, 0.5, 0, 0, 0] //green slow 80%
+		]
+	},
+	{
+		name:'trio',
+		transition: [
+			[0.2, 0.8, 0.0, 0, 0], //white stillness
+			[0.0, 0.2, 0.8, 0, 0], //black exit
+			[0.8, 0.0, 0.2, 0, 0], //red playful, beach
+			[0.5, 0.5, 0, 0, 0], //blue active 5%
+			[0.5, 0.5, 0, 0, 0] //green slow 80%
+		]
+	},
+	{
+		name:'trio_still',
+		transition: [
+			[0.2, 0.8, 0.0, 0.0, 0.0], //white stillness
+			[0.0, 0.2, 0.8, 0.0, 0.0], //black exit
+			[0.0, 0.0, 0.2, 0.8, 0.0], //red playful, beach
+			[0.2, 0.2, 0.2, 0.4, 0.0], //blue active 5%
+			[0.5, 0.5, 0.0, 0.0, 0.0] //green slow 80%
+		]
+	},
+	{
+		name:'dual-uneven',
+		transition: [
+			[0.2, 0.8, 0, 0, 0], //white stillness
+			[0.6, 0.4, 0, 0, 0], //black exit
+			[0.5, 0.5, 0, 0, 0], //red playful, beach
+			[0.5, 0.5, 0, 0, 0], //blue active 5%
+			[0.5, 0.5, 0, 0, 0] //green slow 80%
 		]
 	}
 ];

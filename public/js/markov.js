@@ -4,6 +4,7 @@ var numState = statesJson.length;
 var slaveMode = false;
 var duration = 2000;
 var timeoutId=null;
+var systems = _.pluck(samples, 'name');
 
 // $(function () {
 var State = Backbone.Model.extend({
@@ -187,11 +188,18 @@ socket.on('from server', function(data){
     case 'sync':
         sync();
     break;
+    case 'reload':
+        location.reload();
+    break;
     case 'state':
         switchState(data.value);
     break;
+    case 'system':
+        switchSystem(data.value);
+    break;
     case 'duration':
         duration = data.value*1000;
+        $('#duration-value').text(duration);
     break;
     default:
     break;
@@ -210,10 +218,23 @@ var switchState = function (value) {
     update(value);
 };
 
+var switchSystem = function( value){
+    console.log("switching system to " + value);
+    setSystem(value);
+};
+
 var sync=function(){
     // debugger
     clearTimeout(timeoutId);
     update();
+};
+
+var setSystem=function(system){
+    $('#system-name').text(system);
+    stateList
+        .setProbability(samples.filter(function(s){
+            return s.name == system;
+        })[0].transition);
 };
 
 $(function(){
@@ -235,15 +256,25 @@ $(function(){
         stateViews.push(sv);
     });
 
+    systems.forEach(function(system){
+        $('#samples')
+             .append($("<option></option>")
+                 .attr("value",system)
+                 .text(system)); 
+    });
+
     $('#samples').selectmenu()
         .on("selectmenuchange", function(event, ui){
             var name = ui.item.value;
             // debugger
-            stateList.setProbability(samples.filter(function(s){return s.name == name;})[0].transition);
+            setSystem(name);
+            // stateList.setProbability(samples.filter(function(s){return s.name == name;})[0].transition);
         });
 
-    stateList.setProbability(samples[1].transition);
+    setSystem(systems[1]);
 
+    stateList.setProbability(samples[1].transition);
+    $('#duration-value').text(duration);
 
     update();
    

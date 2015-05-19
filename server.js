@@ -45,8 +45,8 @@ app.get('/control', function (req, res) {
 	res.render('control.html');
 });
 
-server.listen(3000);
-console.log('Listening on port 3000');
+server.listen(8080);
+console.log('Listening on port 8080');
 
 // Expose app
 exports = module.exports = app;

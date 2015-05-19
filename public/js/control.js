@@ -1,5 +1,7 @@
 "use strict";
 
+var systems = _.pluck(samples, 'name');
+
 var socket = io.connect(window.location.origin);
 socket.on('from server', function(data){
   socket.emit('control', {my: 'Control connect'});
@@ -27,7 +29,7 @@ $(document).ready(function() {
 	})
 // http://simeydotme.github.io/jQuery-ui-Slider-Pips/
 	var slider = $('#duration-slider');
-	slider.slider({min:0, max:20, step:1})
+	slider.slider({min:0, max:30, step:1})
 			.slider('pips', {rest:"label"})
     		.slider('value', 10)
     		.slider({change:function(){
@@ -48,5 +50,25 @@ $(document).ready(function() {
 			})
 		}(i));
 	}
+
+	$('#reload-button').button();
+	$('#reload-button').click(function(evt){
+		console.log("Reload clicked");
+		socket.emit('control', {control:'reload'})
+	})
+
+    systems.forEach(function(system){
+        $('#samples')
+             .append($("<option></option>")
+                 .attr("value",system)
+                 .text(system)); 
+    });
+
+    $('#samples').selectmenu()
+        .on("selectmenuchange", function(event, ui){
+            var name = ui.item.value;
+            socket.emit('control', {control:'system', value: name});
+        });
+
 
 });

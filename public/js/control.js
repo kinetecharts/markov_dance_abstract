@@ -64,6 +64,7 @@ $(document).ready(function() {
 			$(id).click(function(evt){
 				console.log(i);
 				socket.emit('control', {control:'state', value: i});
+				restartUpdateCnt();
 			})
 		}(i));
 	}

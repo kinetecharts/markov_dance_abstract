@@ -42,7 +42,7 @@ var samples=[
 		transition: [
 			[0.0, 1.0, 0.0, 0.0, 0.0], //white stillness
 			[0.0, 0.0, 1.0, 0.0, 0.0], //black exit
-			[0.4, 0.0, 0.0, 1.0, 0.0], //red playful, beach
+			[0.0, 0.0, 0.0, 1.0, 0.0], //red playful, beach
 			[1.0, 0.0, 0.0, 0.0, 0.0], //blue active 5%
 			[0.5, 0.5, 0.0, 0.0, 0.0] //green slow 80%
 		]

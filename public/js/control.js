@@ -18,8 +18,10 @@ socket.on('from server', function(data){
 var updateCnt=function(){
 	cnt--;
 	if(cnt==0){
-		if(clientSlaveMode)
+		if(clientSlaveMode){
+			console.log('sync');
 			socket.emit('control', {control:'sync'});
+		}
 		cnt = duration;
 	}
 	$('#counter').text(cnt);
@@ -80,10 +82,11 @@ $(document).ready(function() {
     });
 
     $('#trigger-mode').change(function(){
-    	clientSlaveMode = $('#trigger-mode').prop('checked') ? "slave" : "self";
+    	clientSlaveMode = $('#trigger-mode').prop('checked');
+    	var sendString = clientSlaveMode ? "slave" : "self";
 
-    	console.log("clientSlaveMode changed to " + clientSlaveMode);
-    	socket.emit('control', {control:'trigger-mode', value: clientSlaveMode});
+    	console.log("clientSlaveMode changed to " + sendString);
+    	socket.emit('control', {control:'trigger-mode', value: sendString});
     });
 
     $('#samples').selectmenu()

@@ -19,7 +19,7 @@
   <body>
   <div>
     <center><h1>everything goes here!<br/><br/>
-      <div id="sync-button">Sync</div> <br/><br/>
+      <div id="sync-button">Sync</div> <span id='counter'></span> <br/><br/>
       <div id="duration-slider" class="slider"></div>
       <span id="duration"></span>
       
@@ -29,7 +29,12 @@
       <div id="state-button-3">Blue</div> 
       <div id="state-button-4">Green</div> <br /><br />
 
-      <div id="reload-button">Reload</div> <br /> <br />
+      <div id="reload-button">Reload</div> 
+      <div>
+        <input id="trigger-mode" type="checkbox"/> 
+        <label for="check" class="ui-widget">Slave</label>
+      </div>
+      <br /> <br />
       <div>
         <select id="samples" name="samples" style="width:400px; height:20px">
       </div>

@@ -1,6 +1,10 @@
 "use strict";
 
 var systems = _.pluck(samples, 'name');
+var clientSlaveMode = false;
+var duration = 10;
+var cnt = duration+1;
+var timeoutId = null;
 
 var socket = io.connect(window.location.origin);
 socket.on('from server', function(data){
@@ -11,30 +15,41 @@ socket.on('from server', function(data){
   console.log(data);
 });
 
-setInterval(function(){
-	}, 200);
-//socket.on('from server', function(data){
-//$("#infoDisplay").html(data);
-//});
+var updateCnt=function(){
+	cnt--;
+	if(cnt==0){
+		if(clientSlaveMode)
+			socket.emit('control', {control:'sync'});
+		cnt = duration;
+	}
+	$('#counter').text(cnt);
+	timeoutId = setTimeout(function(){
+		updateCnt();
+	}, 1000)
+};
 
-
-
+var restartUpdateCnt=function(){
+	clearTimeout(timeoutId);
+	cnt = duration+1;
+	updateCnt();
+};
 
 $(document).ready(function() {
 
 	$('#sync-button').button();
 	$('#sync-button').click(function(evt){
 		console.log("Sync clicked");
-		socket.emit('control', {control:'sync'})
+		restartUpdateCnt();
+		socket.emit('control', {control:'sync'});
 	})
 // http://simeydotme.github.io/jQuery-ui-Slider-Pips/
 	var slider = $('#duration-slider');
 	slider.slider({min:0, max:30, step:1})
 			.slider('pips', {rest:"label"})
-    		.slider('value', 10)
+    		.slider('value', duration)
     		.slider({change:function(){
-    			var value = slider.slider('value');
-    			socket.emit('control', {control: 'duration', value: value});
+    			duration = slider.slider('value');
+    			socket.emit('control', {control: 'duration', value: duration});
     		}})
     		// .slide(function(event, ui){
     		// 	console.log(slider.slider('value'));
@@ -64,11 +79,19 @@ $(document).ready(function() {
                  .text(system)); 
     });
 
+    $('#trigger-mode').change(function(){
+    	clientSlaveMode = $('#trigger-mode').prop('checked') ? "slave" : "self";
+
+    	console.log("clientSlaveMode changed to " + clientSlaveMode);
+    	socket.emit('control', {control:'trigger-mode', value: clientSlaveMode});
+    });
+
     $('#samples').selectmenu()
         .on("selectmenuchange", function(event, ui){
             var name = ui.item.value;
             socket.emit('control', {control:'system', value: name});
         });
 
+	updateCnt();
 
 });

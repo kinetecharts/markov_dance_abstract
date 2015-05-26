@@ -1,10 +1,10 @@
 "use strict";
 
 var numState = statesJson.length;
-var slaveMode = false;
-var duration = 2000;
+var duration = 10000;
 var timeoutId=null;
 var systems = _.pluck(samples, 'name');
+var slaveMode = false; //if true, has to be triggered by external sync
 
 // $(function () {
 var State = Backbone.Model.extend({
@@ -188,6 +188,9 @@ socket.on('from server', function(data){
     case 'sync':
         sync();
     break;
+    case 'trigger-mode':
+        setTriggerMode(data.value);
+    break;
     case 'reload':
         location.reload();
     break;
@@ -227,6 +230,16 @@ var sync=function(){
     // debugger
     clearTimeout(timeoutId);
     update();
+};
+
+var setTriggerMode=function(mode){
+    // debugger
+    slaveMode = (mode == 'slave');
+    if(slaveMode)
+        clearTimeout(timeoutId);
+    else
+        update();
+    $('#slave-mode').text(slaveMode ? 'On' : 'Off');
 };
 
 var setSystem=function(system){

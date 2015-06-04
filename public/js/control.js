@@ -7,6 +7,7 @@ var cnt = duration+1;
 var timeoutId = null;
 var clock1 = 0;
 var clock2 = 0;
+var runningMode = true;
 
 var socket = io.connect(window.location.origin);
 socket.on('from server', function(data){
@@ -22,7 +23,8 @@ var formatClock=function(clock){
 };
 
 var updateCnt=function(){
-	cnt--;
+	if(runningMode)
+		cnt--;
 	if(cnt==0){
 		if(clientSlaveMode){
 			console.log('sync');
@@ -96,6 +98,11 @@ $(document).ready(function() {
 
     	console.log("clientSlaveMode changed to " + sendString);
     	socket.emit('control', {control:'trigger-mode', value: sendString});
+    });
+    $('#running-mode').prop("checked", true);
+    $('#running-mode').change(function(){
+    	runningMode = $('#running-mode').prop('checked');
+    	console.log("runningMode changed to " + runningMode);
     });
 
     $('#samples').selectmenu()

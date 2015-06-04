@@ -52,8 +52,8 @@ var samples=[
 		transition: [
 			[0.2, 0.8, 0.0, 0.0, 0.0], //white stillness
 			[0.0, 0.2, 0.8, 0.0, 0.0], //black exit
-			[0.4, 0.0, 0.2, 0.8, 0.0], //red playful, beach
-			[0.8, 0.0, 0.0, 0.2, 0.0], //blue active 5%
+			[0.4, 0.0, 0.2, 0.4, 0.0], //red playful, beach
+			[0.4, 0.4, 0.0, 0.2, 0.0], //blue active 5%
 			[0.5, 0.5, 0.0, 0.0, 0.0] //green slow 80%
 		]
 	},
@@ -68,10 +68,10 @@ var samples=[
 		]
 	},
 	{
-		name:'dual- more black',
+		name:'dual- more white',
 		transition: [
-			[0.2, 0.8, 0, 0, 0], //white stillness
-			[0.6, 0.4, 0, 0, 0], //black exit
+			[0.6, 0.4, 0, 0, 0], //white stillness
+			[0.8, 0.2, 0, 0, 0], //black exit
 			[0.5, 0.5, 0, 0, 0], //red playful, beach
 			[0.5, 0.5, 0, 0, 0], //blue active 5%
 			[0.5, 0.5, 0, 0, 0] //green slow 80%

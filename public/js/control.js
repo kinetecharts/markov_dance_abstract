@@ -5,6 +5,8 @@ var clientSlaveMode = false;
 var duration = 10;
 var cnt = duration+1;
 var timeoutId = null;
+var clock1 = 0;
+var clock2 = 0;
 
 var socket = io.connect(window.location.origin);
 socket.on('from server', function(data){
@@ -14,6 +16,10 @@ socket.on('from server', function(data){
   $('#kinect').html('kinect x:'+data.x+"<br/>y:"+data.y+"z:"+data.z);
   console.log(data);
 });
+
+var formatClock=function(clock){
+	return ""+(Math.floor(clock/60)) + ":" + (clock%60);
+};
 
 var updateCnt=function(){
 	cnt--;
@@ -25,6 +31,8 @@ var updateCnt=function(){
 		cnt = duration;
 	}
 	$('#counter').text(cnt);
+	$('#clock1').text(formatClock(clock1++));
+	$('#clock2').text(formatClock(clock2++));
 	timeoutId = setTimeout(function(){
 		updateCnt();
 	}, 1000)
@@ -95,6 +103,13 @@ $(document).ready(function() {
             var name = ui.item.value;
             socket.emit('control', {control:'system', value: name});
         });
+
+	$('#clock1').click(function(){
+		clock1 = 0;
+	})
+	$('#clock2').click(function(){
+		clock2 = 0;
+	})
 
 	updateCnt();
 

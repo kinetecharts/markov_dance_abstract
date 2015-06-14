@@ -250,6 +250,14 @@ var setSystem=function(system){
         })[0].transition);
 };
 
+$(document).keypress(function(e){
+    console.log(e.which);
+    if(e.which > 48 && e.which < 58){
+        var num = e.which - 48;
+        document.title = "Makov dance" + num;
+    }
+});
+
 $(function(){
     createImageDivs();
     $('#state-list').hide();

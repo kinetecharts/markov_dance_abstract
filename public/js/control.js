@@ -85,6 +85,18 @@ $(document).ready(function() {
 		socket.emit('control', {control:'reload'})
 	})
 
+	$('#markov_1').button();
+	$('#markov_1').click(function(evt){
+		console.log("starting markov_1");
+		markov_1();
+	})
+
+	$('#markov_2').button();
+	$('#markov_2').click(function(evt){
+		console.log("starting markov_2");
+		markov_2();
+	})
+
     systems.forEach(function(system){
         $('#samples')
              .append($("<option></option>")
@@ -121,3 +133,4 @@ $(document).ready(function() {
 	updateCnt();
 
 });
+
